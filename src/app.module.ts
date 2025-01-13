@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 
 import { PartidasModule } from './partidas/partidas.module';
 import { DesafiosModule } from './desafios/desafios.module';
-import { ProxyrmqModule } from './proxyrmq/proxyrmq.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ProxyRMQModule } from './proxyrmq/proxyrmq.module';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ),
     PartidasModule,
     DesafiosModule,
-    ProxyrmqModule,
+    ProxyRMQModule,
   ],
   controllers: [],
   providers: [],

@@ -4,7 +4,6 @@ import { Desafio } from './interfaces/desafio.interface';
 import { Model } from 'mongoose';
 import { DesafioStatus } from './desafio-status.enum';
 import { RpcException } from '@nestjs/microservices';
-import * as momentTimezone from 'moment-timezone';
 import { ClientProxySmartRanking } from '../proxyrmq/client-proxy';
 
 @Injectable()
@@ -91,8 +90,6 @@ export class DesafiosService {
     dataRef: string,
   ): Promise<Desafio[]> {
     try {
-      const dataRefNew = `${dataRef} 23:59:59.999`;
-
       return await this.desafioModel
         .find()
         .where('categoria')
@@ -100,11 +97,6 @@ export class DesafiosService {
         .where('status')
         .equals(DesafioStatus.REALIZADO)
         .where('dataHoraDesafio')
-        .lte(
-          momentTimezone(dataRefNew)
-            .tz('UTC')
-            .format('YYYY-MM-DD HH:mm:ss.SSS+00:00'),
-        )
         .exec();
     } catch (error) {
       this.logger.error(`error: ${JSON.stringify(error.message)}`);
